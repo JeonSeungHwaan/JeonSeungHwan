@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.board.mybatis.MemberMapper">
+	
+	<insert id="insertMember">
+		insert into MEMBER values (
+			#{id},
+			#{passwd},
+			#{name},
+			#{jumin1},
+			#{jumin2},
+			#{email},
+			#{blog},
+			#{reg_date})
+	</insert>
+	
+	<select id="userCheck" resultType="String">
+		select passwd from MEMBER where id = #{id} and status != '탈퇴'
+	</select>
+	
+	<select id="getMember" resultType="com.board.bean.MemberDTO">
+		select * from MEMBER where id = #{id}
+	</select>
+	
+	<update id="updateMember">
+		update MEMBER set passwd=#{passwd},name=#{name},email=#{email},blog=#{blog} where id=#{id}
+	</update>
+	
+	<select id="confirmId" resultType="int">
+		select count(*) from MEMBER where id = #{id}
+	</select>
+	
+	<update id="deleteMember">
+		update member set status = '탈퇴' where id = #{id} and passwd = #{passwd}
+	</update>
+	
+</mapper>
